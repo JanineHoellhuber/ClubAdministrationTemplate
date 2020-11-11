@@ -41,5 +41,17 @@ namespace ClubAdministration.Persistence
             members.ForEach(m => m.CountSections = _dbContext.MemberSections.Count(ms => ms.MemberId == m.Id));
             return members;
         }
+
+        public async Task<Member> GetMemberByIdAsync(int id)
+        {
+            return await _dbContext.Members
+                .SingleAsync(s => s.Id == id);
+        }
+
+        public void Update(Member memeberInDb)
+        {
+             _dbContext.Members
+                .Update(memeberInDb);
+        }
     }
 }

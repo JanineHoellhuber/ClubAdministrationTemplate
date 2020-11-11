@@ -1,5 +1,6 @@
 ﻿using ClubAdministration.Core.Contracts;
 using ClubAdministration.Core.DataTransferObjects;
+using ClubAdministration.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace ClubAdministration.Persistence
       _dbContext = dbContext;
     }
 
-       
+    
 
     }
 }

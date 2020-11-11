@@ -9,7 +9,8 @@ namespace ClubAdministration.Core.Contracts
   {
     Task AddRangeAsync(IEnumerable<MemberSection> memberSections);
         Task<IEnumerable<MemberDto>> GetBySectionWithMemberAsync(int sectionId);
+        Task<Member> GetMemberByIdAsync(int id);
 
-
+        void Update(Member memeberInDb);
     }
 }

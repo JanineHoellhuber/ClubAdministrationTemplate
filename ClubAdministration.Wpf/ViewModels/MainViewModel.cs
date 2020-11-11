@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ClubAdministration.Wpf.ViewModels
 {
@@ -113,5 +114,26 @@ namespace ClubAdministration.Wpf.ViewModels
       await viewModel.LoadDataAsync();
       return viewModel;
     }
-  }
+
+        private ICommand _cmdEditMember;
+
+        public ICommand CmdEditMember
+        {
+            get
+            {
+                if(_cmdEditMember == null)
+                {
+                    _cmdEditMember = new RelayCommand(
+                        execute: _ =>
+                        {
+                            Controller.ShowWindow(new EditMemberViewModel(Controller, SelectedMember), true);
+                            LoadDataAsync();
+                        },
+                        canExecute: _ => SelectedMember != null);
+                    
+                }
+                return _cmdEditMember;
+            }
+        }
+    }
 }
