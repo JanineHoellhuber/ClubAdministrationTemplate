@@ -35,6 +35,7 @@ namespace ClubAdministration.Wpf.ViewModels
             {
                 _lastname = value;
                 OnPropertyChanged(nameof(Lastname));
+                Validate();
             }
         }
 
@@ -91,7 +92,14 @@ namespace ClubAdministration.Wpf.ViewModels
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            throw new NotImplementedException();
+           
+            if(Lastname.Length < 2)
+            {
+                yield return new ValidationResult(
+                    "Minimum length of Lastname is 2",
+                    new string[] { nameof(Lastname) });
+            }
+            
         }
     }
 }
