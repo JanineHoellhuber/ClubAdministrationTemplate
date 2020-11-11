@@ -20,12 +20,20 @@ namespace ClubAdministration.Persistence.Validations
         throw new ArgumentException("Value is not a member", nameof(value));
       }
 
-              throw new NotImplementedException("Duplikatsprüfung implementieren");
+            // throw new NotImplementedException("Duplikatsprüfung implementieren");
             // TODO: Prüfung ob ein Duplikat in der DB existiert, wenn ja:
             //  return new ValidationResult("Es existiert bereits ein Mitglied mit dem Namen");
             // else 
             // return ValidationResult.Success;
 
+            if (!_unitOfWork.MemberRepository.CheckDuplicateMember(member))
+            {
+                return new ValidationResult("Es existiert bereits ein Mitglied mit dem Namen");
+            }
+            else
+            {
+                return ValidationResult.Success;
+            }
        
     }
   }

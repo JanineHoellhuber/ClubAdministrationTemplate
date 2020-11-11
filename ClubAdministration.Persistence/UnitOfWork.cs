@@ -41,7 +41,7 @@ namespace ClubAdministration.Persistence
 
       foreach (var entity in entities)
       {
-        //ValidateEntity(entity);
+        ValidateEntity(entity);
       }
 
       return await _dbContext.SaveChangesAsync();

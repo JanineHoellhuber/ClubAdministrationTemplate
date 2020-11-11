@@ -6,7 +6,7 @@ namespace ClubAdministration.Core.Contracts
 {
   public interface IMemberRepository
     {
-         
 
+        bool CheckDuplicateMember(Member memeber);
     }
 }

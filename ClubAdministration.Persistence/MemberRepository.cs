@@ -16,7 +16,22 @@ namespace ClubAdministration.Persistence
       _dbContext = dbContext;
     }
 
-    
+
+       public bool CheckDuplicateMember(Member member)
+        {
+
+            var duplicateMember = _dbContext.Members
+                 .Where(m => m.LastName == member.LastName && m.FirstName == member.LastName);
+
+            if(duplicateMember != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
     }
 }
