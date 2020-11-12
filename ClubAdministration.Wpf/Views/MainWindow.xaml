@@ -18,7 +18,7 @@
 
         <StackPanel Grid.Row="0">
             <TextBlock>Section:</TextBlock>
-            <ComboBox Height="20" ItemsSource="{Binding Path=Sections}" SelectedItem="{Binding Path=SelectedSection}" DisplayMemberPath="Section.Name"></ComboBox>
+            <ComboBox Height="20" ItemsSource="{Binding Path=Sections}" SelectedItem="{Binding Path=SelectedSection}" DisplayMemberPath="Name"></ComboBox>
         </StackPanel>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding Members}" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding SelectedMember}">
