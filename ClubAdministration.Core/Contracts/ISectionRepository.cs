@@ -9,5 +9,6 @@ namespace ClubAdministration.Core.Contracts
   {
         Task<IEnumerable<Section>> GetAllAsync();
         Task<List<MemberDto>> GetMemebersToSection(int sectionId);
+        Task<string[]> GetSectionsForMember(string lastname, string firstname);
     }
 }

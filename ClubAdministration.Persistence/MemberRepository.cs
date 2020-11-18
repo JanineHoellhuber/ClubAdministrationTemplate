@@ -39,6 +39,13 @@ namespace ClubAdministration.Persistence
             return await _dbContext.Members.FirstAsync(m => m.Id == value);
         }
 
+        public async Task<string[]> GetMemberNamesAsync()
+        {
+            return await _dbContext.Members
+                .OrderBy(l => l.LastName)
+                .Select(m => $"{m.LastName} {m.FirstName}")
+                .ToArrayAsync();
+        }
 
     }
 }

@@ -10,5 +10,6 @@ namespace ClubAdministration.Core.Contracts
 
         bool CheckDuplicateMember(Member memeber);
         Task<Member> GetByIdAsync(int value);
+        Task<string[]> GetMemberNamesAsync();
     }
 }

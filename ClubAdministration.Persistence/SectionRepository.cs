@@ -45,6 +45,14 @@ namespace ClubAdministration.Persistence
                 );
             return members;
         }
+        public async Task<string[]> GetSectionsForMember(string lastname, string firstname)
+        {
+            return await _dbContext.MemberSections
+                .Where(m => m.Member.LastName == lastname && m.Member.FirstName == firstname)
+                .Select(s => $"{s.Section.Name}")
+                .ToArrayAsync();
+        }
+
 
     }
 }
