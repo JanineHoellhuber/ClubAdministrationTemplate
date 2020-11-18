@@ -35,8 +35,13 @@ namespace ClubAdministration.Web.Pages
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
+            if (!ModelState.IsValid) return await OnGet();
+            var sectionList = await _unitOfWork.SectionRepository.GetAllAsync();
+            SectionList = sectionList.ToList();
+            var members = await _unitOfWork.SectionRepository.GetMemebersToSection(SectionId);
+            Members = members;
             return Page();
         }
   }

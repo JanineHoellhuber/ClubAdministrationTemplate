@@ -4,6 +4,7 @@ using ClubAdministration.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ClubAdministration.Persistence
 {
@@ -32,6 +33,12 @@ namespace ClubAdministration.Persistence
                 return true;
             }
         }
+
+        public async Task<Member> GetByIdAsync(int value)
+        {
+            return await _dbContext.Members.FirstAsync(m => m.Id == value);
+        }
+
 
     }
 }
