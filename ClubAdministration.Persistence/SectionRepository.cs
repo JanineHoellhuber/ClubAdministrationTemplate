@@ -1,4 +1,5 @@
 ﻿using ClubAdministration.Core.Contracts;
+using ClubAdministration.Core.DataTransferObjects;
 using ClubAdministration.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -22,5 +23,28 @@ namespace ClubAdministration.Persistence
                 .OrderBy(s => s.Name)
                 .ToListAsync();
         }
-  }
+
+        public async Task<List<MemberDto>> GetMemebersToSection(int sectionId)
+        {
+           var members =  await _dbContext.MemberSections
+                .Include(ms => ms.Member)
+                .Include(ms => ms.Section)
+                .Where(ms => ms.SectionId == sectionId)
+                .Select(ms => new MemberDto
+                {
+                    FirstName = ms.Member.FirstName,
+                    LastName = ms.Member.LastName,
+                    Id = ms.MemberId
+
+                })
+                .OrderBy(m => m.LastName)
+                .ThenBy(m => m.FirstName)
+                .ToListAsync();
+            members.ForEach(m => 
+                    m.CountSections = _dbContext.MemberSections.Count(ms => ms.MemberId == m.Id)
+                );
+            return members;
+        }
+
+    }
 }

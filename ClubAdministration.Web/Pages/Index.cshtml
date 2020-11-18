@@ -1,31 +1,70 @@
 ﻿@page
 @model IndexModel
 @{
-  ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home page";
 }
 
 <h2>Members of section</h2>
 <hr />
 <div class="row">
-  <div class="col-md-2">
-    <form name="formIndex" method="post" onchange="DoPostBack();">
-      <div class="form-group">
-        @*TODO*@
-      </div>
-    </form>
-  </div>
+    <div class="col-md-2">
+        <form name="formIndex" method="post" onchange="DoPostBack();">
+            <div class="form-group">
+                <label>Section</label>
+                <select asp-for="SectionId" class="form-control">
+                    @foreach (var item in Model.SectionList)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <button type="submit" class="btn btn-primary">Laden</button>
+        </form>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Members[0].LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Members[0].FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Members[0].CountSections)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Members)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CountSections)
+                    </td>
+                    <td>
+                        <a asp-page="./Members/Edit" asp-route-id="@item.Id">Edit Member</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
 </div>
 
-<table class="table">
-  @*TODO*@
-</table>
-
 <script>
-  function DoPostBack() {
-    document.formIndex.submit();
-  }
+    function DoPostBack() {
+        document.formIndex.submit();
+    }
 </script>
 
 @section Scripts {
-  @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -1,26 +1,43 @@
 ﻿using ClubAdministration.Core.Contracts;
+using ClubAdministration.Core.DataTransferObjects;
+using ClubAdministration.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ClubAdministration.Web.Pages
 {
   public class IndexModel : PageModel
   {
-    private readonly IUnitOfWork _unitOfWork;
+        [BindProperty]
+        public int SectionId { get; set; }
+        public List<Section> SectionList { get; set; }
+        public List<MemberDto> Members { get; set; }
 
-    public IndexModel(IUnitOfWork unitOfWork)
-    {
-      _unitOfWork = unitOfWork;
-    }
 
-    public IActionResult OnGet()
-    {
-      return Page();
-    }
+        private readonly IUnitOfWork _unitOfWork;
 
-    public IActionResult OnPost()
-    {
-      return Page();
-    }
+        public IndexModel(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public async Task<IActionResult> OnGet()
+        {
+            var sectionList = await _unitOfWork.SectionRepository.GetAllAsync();
+            SectionList = sectionList.ToList();
+            SectionId = sectionList.First().Id;
+            Members = await _unitOfWork.SectionRepository.GetMemebersToSection(SectionId);
+
+
+            return Page();
+        }
+
+        public IActionResult OnPost()
+        {
+            return Page();
+        }
   }
 }
